@@ -15,7 +15,7 @@ npm install frp.js
 
 `frp.js` exposes two classes: `FRPClient` and `FRPServer`. Both classes work very similarly.  Whether you're running a server or a client you must provide your config. You can do this in three ways. The first way is the most practical way, when creating an instance you provide your config as an object. The second way is to use `.setConfig(config)` after creating your instance and providing your config and the third way is running `.setConfigRaw(rawConfig)` where you can input a raw ini formatted string.  
 Now you can start your instance with `.start()`.
-You can find all config fields in the FRP repository which can be accessed by [clicking here](https://github.com/fatedier/frp/blob/dev/conf/frpc_full.ini).  Each section should be a separate key in  your object.
+You can find all config fields in the FRP repository which can be accessed by [clicking here](https://github.com/fatedier/frp/tree/dev/conf). Each section should be a separate key in  your object.
 # Example
 **Client example:**
 ```js
@@ -70,4 +70,4 @@ const server = new FRPServer({
 server.start();
 ```
 # License
-The code in `frp.js` is licensed with an MIT license. FRP is licensed with [Apache License](https://github.com/fatedier/frp/blob/dev/LICENSE).
+The code in `frp.js` is licensed with an [MIT license](https://github.com/PondWader/frp.js/blob/main/LICENSE). FRP is licensed with [Apache License](https://github.com/fatedier/frp/blob/dev/LICENSE).
