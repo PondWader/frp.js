@@ -29,7 +29,7 @@ const client = new FRPClient({
 
 	ssh: {
 		type: 'tcp',
-	    local_ip: '127.0.0.1',
+	    	local_ip: '127.0.0.1',
 		local_port: 22,
 		remote_port: 6000
 	}
