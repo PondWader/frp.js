@@ -1,0 +1,90 @@
+type ClientCommonConf = {
+    server_addr?: string;
+    server_port?: number;
+    dial_server_timeout?: number;
+    dial_server_keepalive?: number;
+    http_proxy?: string;
+    log_file?: string;
+    log_level?: 'trace' | 'debug' | 'info' | 'warn' | 'error';
+    log_max_days?: number;
+    disable_log_color?: boolean;
+    authenticate_heartbeats?: boolean;
+    authenticate_new_work_conns?: boolean;
+    token?: string;
+    oidc_client_id?: string;
+    oidc_client_secret?: string;
+    oidc_audience?: string;
+    oidc_token_endpoint_url?: string;
+    oidc_additional_audience?: string;
+    oidc_additional_var1?: string;
+    admin_addr?: string;
+    admin_port?: number;
+    admin_user?: string;
+    admin_pwd?: string;
+    assets_dir?: string;
+    pool_count?: number;
+    tcp_mux?: boolean;
+    tcp_mux_keepalive_interval?: number;
+    user?: string;
+    login_fail_exit?: boolean;
+    protocol?: 'tcp' | 'kcp' | 'websocket';
+    connect_server_local_ip?: string;
+    tls_enable?: boolean;
+    tls_cert_file?: string;
+    tls_key_file?: string;
+    tls_trusted_ca_file?: string;
+    tls_server_name?: string;
+    dns_server?: string;
+    start?: string;
+    heartbeat_interval?: number;
+    heartbeat_timeout?: number;
+    meta_var1?: string;
+    meta_var2?: string;
+    udp_packet_size?: number;
+    includes?: string;
+    disable_custom_tls_first_byte?: boolean;
+    pprof_enable?: boolean;
+    [key: string]: any;
+};
+
+type ClientProxyConf = {
+    type?: 'tcp' | 'udp' | 'http' | 'https' | 'stcp' | 'xtcp';
+    local_ip?: string;
+    local_port?: number;
+    remote_port?: number;
+    bandwidth_limit?: string;
+    use_encryption?: boolean;
+    use_compression?: boolean;
+    group?: string;
+    group_key?: string;
+    health_check_type?: 'http' | 'tcp';
+    health_check_url?: string;
+    health_check_timeout_s?: number;
+    health_check_max_failed?: number;
+    health_check_interval_s?: number;
+    meta_var1?: string;
+    meta_var2?: string;
+    http_user?: string;
+    http_pwd?: string;
+    subdomain?: string;
+    custom_domains?: string;
+    locations?: string;
+    route_by_http_user?: string;
+    host_header_rewrite?: string;
+    [key: `header_${string}`]: string;
+    proxy_protocol_version?: 'v1' | 'v2' | '';
+    plugin?: string;
+    [key: `plugin_${string}`]: string;
+    sk?: string;
+    role?: string;
+    server_name?: string;
+    bind_addr?: string;
+    bind_port?: number;
+    [key: string]: any;
+}
+
+type ClientMultiProxyConf = {
+    [key: string]: ClientProxyConf;
+}
+
+export type ClientConf = Omit<ClientMultiProxyConf, 'common'> & { common: ClientCommonConf };
