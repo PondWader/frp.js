@@ -17,7 +17,7 @@ npm install frp.js
 Now you can start your instance with `.start()`.
 You can find all config fields in the FRP repository which can be accessed by [clicking here](https://github.com/fatedier/frp/tree/dev/conf). Each section should be a separate key in  your object.
 # Example
-**Client example:**
+**Client example:**  
 [Find all available client configuration options by clicking here.](https://github.com/fatedier/frp/blob/dev/conf/frpc_full.ini)  
 ```js
 const { FRPClient } = require('frp.js');
