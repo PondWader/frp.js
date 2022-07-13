@@ -1,5 +1,5 @@
 {
-  "name": "frp.js",
+  "name": "js-frp",
   "version": "0.1.0",
   "description": "A library written in TypeScript for managing FRP instances. FRP is a fast reverse proxy to help you expose a local server behind a NAT or firewall to the Internet.",
   "main": "dist",
@@ -10,7 +10,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/PondWader/frp.js.git"
+    "url": "git+https://github.com/PondWader/js-frp.git"
   },
   "keywords": [
     "frp",
@@ -18,9 +18,9 @@
     "ts"
   ],
   "bugs": {
-    "url": "https://github.com/PondWader/frp.js/issues"
+    "url": "https://github.com/PondWader/js-frp/issues"
   },
-  "homepage": "https://github.com/PondWader/frp.js#readme",
+  "homepage": "https://github.com/PondWader/js-frp#readme",
   "devDependencies": {
     "@types/decompress": "^4.2.4",
     "@types/ini": "^1.3.31",

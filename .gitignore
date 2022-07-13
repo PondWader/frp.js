@@ -126,6 +126,6 @@ dist
 .yarn/install-state.gz
 .pnp.*
 
-# FRP.js
+# js-frp
 lib
 test.js
