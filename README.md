@@ -2,7 +2,7 @@
 
 `frp.js` is a JavaScript library written in TypeScript for managing FRP instances. FRP is a fast reverse proxy to help you expose a local server behind a NAT or firewall to the Internet.  
 
-`frp.js` provides complete typing for all FRP configuration.  
+`frp.js` provides complete type support for all FRP configuration.  
 
 [Find out more about FRP on the official respository here.](https://github.com/fatedier/frp)  
 
@@ -18,6 +18,7 @@ Now you can start your instance with `.start()`.
 You can find all config fields in the FRP repository which can be accessed by [clicking here](https://github.com/fatedier/frp/tree/dev/conf). Each section should be a separate key in  your object.
 # Example
 **Client example:**
+[Find all available client configuration options by clicking here.](https://github.com/fatedier/frp/blob/dev/conf/frpc_full.ini)  
 ```js
 const { FRPClient } = require('frp.js');
 
@@ -36,7 +37,7 @@ const client = new FRPClient({
 });
 
 client.on('started', () => {
-	// Event is triggered when the FRP process begins to be launched, due to the fact the FRP executables will need to be downloaded if you haven't run FRP before you should wait for this event instead of assuming everything will be ready instantly after calling frp.start()
+	// Event is triggered when the FRP process begins to be launched, due to the fact the FRP executables will need to be downloaded if you haven't run FRP before, you should always wait for this event instead of assuming everything will be available instantly after calling frp.start()
 	// At this point client.process (and client.stdout) will become available.
 });
 client.on('spawned', () => {
@@ -45,10 +46,10 @@ client.on('spawned', () => {
 });
 client.on('closed', () => {
 	console.log('The FRP process has stopped.');
-	// If you wish to be safe and you don't want the client to stop you can add a line calling client.start() to automatically restart the client.
+	// If you wish to be safe and you don't want the client to stop you can call client.start() on close to automatically restart the client.
 });
 client.on('message', (msg) => {
-	// An alternative to using client.stdout where the messages are parsed to stringts for you.
+	// An alternative to using client.stdout where the messages are parsed to strings for you.
 	console.log(msg);
 });
 
@@ -57,7 +58,8 @@ client.start();
 ```
 **Server example:**
   
-Server works almost exactly the same as client, all above events apply so will not be repeated in this example.
+Server works almost exactly the same as client, all above events apply so will not be repeated in this example.  
+[Find all available server configuration options by clicking here.](https://github.com/fatedier/frp/blob/dev/conf/frps_full.ini)  
 ```js
 const { FRPServer } = require('frp.js');
 

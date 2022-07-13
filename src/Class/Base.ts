@@ -52,7 +52,7 @@ export default class FRPBase extends EventEmitter {
 
     async _writeConfig(conf: string) {
         await this.downloadPromise;
-        await fs.writeFile(path.join(this.binaryDir as string, `tmp_conf_${this.id}.ini`), conf);
+        await fs.writeFile(this.getConfigPath() as string, conf);
     }
 
     /**
@@ -63,7 +63,7 @@ export default class FRPBase extends EventEmitter {
         await this.downloadPromise;
         const args = [
             '-c',
-            path.join(this.binaryDir as string, `tmp_conf_${this.id}.ini`)
+            this.getConfigPath() as string
         ];
         this.process = spawn(path.join(this.binaryDir as string, process.platform === 'win32' ? this.executableName + '.exe' : this.executableName), args);
         this.stdout = this.process.stdout;
@@ -89,5 +89,13 @@ export default class FRPBase extends EventEmitter {
     stop() {
         if (this.process) return this.process.kill();
         return false;
+    }
+
+    /**
+     * Get the file location where the configuration file is written
+     */
+    getConfigPath() {
+        if (!this.binaryDir) return null;
+        return path.join(this.binaryDir as string, `tmp_conf_${this.id}.ini`);
     }
 };
