@@ -70,6 +70,7 @@ const server = new FRPServer({
 });
 
 server.start();
-```
+```  
+[Find more examples using `js-frp` by clicking here.](https://github.com/PondWader/js-frp/tree/main/examples)  
 # License
 The code in `js-frp` is licensed with an [MIT license](https://github.com/PondWader/js-frp/blob/main/LICENSE). FRP is licensed with [Apache License](https://github.com/fatedier/frp/blob/dev/LICENSE).
