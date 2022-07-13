@@ -4,7 +4,16 @@ import constants from './constants';
 import { DownloaderHelper } from 'node-downloader-helper';
 import decompress from 'decompress';
 
+let downloading = false;
+let resolveAwaiters: ((value: string) => void)[] = [];
+
 export default async function downloadFRP() : Promise<string> {
+    // If file is already downloading add the promise to an array of promises to be resolved once it's downloaded
+    if (downloading) {
+        return new Promise((resolve) => resolveAwaiters.push(resolve));
+    }
+    downloading = true;
+
     const platform = process.platform;
     const arch = process.arch;
 
@@ -37,11 +46,15 @@ export default async function downloadFRP() : Promise<string> {
 
     // Check if file exists or not
     const stat = await fs.stat(binaryPath).catch(() => {});
-    if (stat) return binaryPath;
+    if (stat) {
+        resolvePromises(binaryPath);
+        return binaryPath;
+    }
     await fs.mkdir(binariesDir).catch(() => {});
 
     await downloadFiles(binariesDir, releaseFile, binaryPath);
 
+    resolvePromises(binaryPath);
     return binaryPath;
 }
 
@@ -72,4 +85,12 @@ async function cleanFiles(dir: string) {
     for await (const file of files) {
         if (file.endsWith('.ini')) await fs.rm(path.join(dir, file));
     }
+}
+
+function resolvePromises(value: string) {
+    downloading = false;
+    for (const resolve of resolveAwaiters) {
+        resolve(value);
+    }
+    resolveAwaiters = [];
 }
