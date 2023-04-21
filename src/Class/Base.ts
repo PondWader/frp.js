@@ -1,6 +1,6 @@
 import { EventEmitter } from 'events';
 import download from '../FRPUtil/download';
-import fs from 'fs/promises';
+import fs from 'fs';
 import path from 'path';
 import { spawn, ChildProcessWithoutNullStreams } from 'child_process';
 import { Readable } from 'stream';
@@ -32,6 +32,7 @@ export default class FRPBase extends EventEmitter {
     private executableName: string;
     private binaryDir: string | undefined;
     private downloadPromise: Promise<void>;
+    private lockStream?: fs.ReadStream;
     public id: number;
     public process: ChildProcessWithoutNullStreams | null;
     public stdout: Readable | null;
@@ -52,7 +53,9 @@ export default class FRPBase extends EventEmitter {
 
     async _writeConfig(conf: string) {
         await this.downloadPromise;
-        await fs.writeFile(this.getConfigPath() as string, conf);
+        if (this.lockStream) this.lockStream.destroy();
+        await fs.promises.writeFile(this.getConfigPath()!, conf);
+        this.lockStream = fs.createReadStream(this.getConfigPath()!);
     }
 
     /**
@@ -97,5 +100,15 @@ export default class FRPBase extends EventEmitter {
     getConfigPath() {
         if (!this.binaryDir) return null;
         return path.join(this.binaryDir as string, `tmp_conf_${this.id}.ini`);
+    }
+
+    /**
+     * Destroy the instance, including removing the configuration file
+     */
+    async destroy() {
+        this.stop();
+        this.process = null;
+        this.lockStream?.destroy();
+        await fs.promises.rm(this.getConfigPath()!);
     }
 };

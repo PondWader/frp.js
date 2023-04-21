@@ -47,6 +47,7 @@ export default async function downloadFRP() : Promise<string> {
     // Check if file exists or not
     const stat = await fs.stat(binaryPath).catch(() => {});
     if (stat) {
+        await cleanFiles(binaryPath);
         resolvePromises(binaryPath);
         return binaryPath;
     }
@@ -83,7 +84,7 @@ async function cleanFiles(dir: string) {
     const files = await fs.readdir(dir);
     
     for await (const file of files) {
-        if (file.endsWith('.ini')) await fs.rm(path.join(dir, file));
+        if (file.endsWith('.ini')) await fs.rm(path.join(dir, file)).catch(() => {});
     }
 }
 
