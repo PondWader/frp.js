@@ -1,6 +1,6 @@
 {
   "name": "js-frp",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A library written in TypeScript for managing FRP instances. FRP is a fast reverse proxy to help you expose a local server behind a NAT or firewall to the Internet.",
   "main": "dist",
   "types": "./dist/index.d.ts",
